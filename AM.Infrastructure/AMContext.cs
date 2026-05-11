@@ -12,6 +12,9 @@ namespace AM.Infrastructure
         public DbSet<Passenger> Passengers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Traveller> Travellers { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<ReservationTicket> ReservationTickets { get; set; }
+
 
         //Chaine de connexion
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -37,6 +40,8 @@ namespace AM.Infrastructure
                 .ToTable("Travellers");
             modelBuilder.Entity<Staff>()
                 .ToTable("Staffs");
+            modelBuilder.Entity<ReservationTicket>()
+                .HasKey(e => new { e.TicketFk, e.PassengerFk });
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
